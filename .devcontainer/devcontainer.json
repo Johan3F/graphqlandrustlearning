@@ -8,7 +8,11 @@
 	},
 	"extensions": [
 		"rust-lang.rust",
-		"vadimcn.vscode-lldb"
+		"vadimcn.vscode-lldb",
+		"bungcip.better-toml"
+	],
+	"mounts": [
+		"source=/home/johan/.ssh,target=/home/developer/.ssh,type=bind,consistency=cached"
 	],
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "developer",
