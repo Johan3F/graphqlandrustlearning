@@ -47,32 +47,11 @@ fn main() {
     .unwrap();
 
     // Ensure the value matches.
-    // assert_eq!(
-    //     res,
-    //     graphql_value!({
-    //         "favoriteEpisode": "NEW_HOPE",
-    //     })
-    // );
-    println!("res {:?}", res);
-
-    // Create a context object.
-    // let ctx = Ctx(Episode::Jedi);
-    // Run the executor.
-    let (res, _errors) = juniper::execute_sync(
-        "query { giveMeJedi }",
-        None,
-        &Schema::new(Query, EmptyMutation::new(), EmptySubscription::new()),
-        &Variables::new(),
-        &ctx,
-    )
-    .unwrap();
-
-    // Ensure the value matches.
-    // assert_eq!(
-    //     res,
-    //     graphql_value!({
-    //         "favoriteEpisode": "NEW_HOPE",
-    //     })
-    // );
+    assert_eq!(
+        res,
+        graphql_value!({
+            "favoriteEpisode": "NEW_HOPE",
+        })
+    );
     println!("res {:?}", res);
 }
