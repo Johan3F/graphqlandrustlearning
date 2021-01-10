@@ -1,5 +1,6 @@
 use juniper::{
-    graphql_object, EmptyMutation, EmptySubscription, FieldResult, GraphQLEnum, Variables,
+    graphql_object, graphql_value, EmptyMutation, EmptySubscription, FieldResult, GraphQLEnum,
+    Variables,
 };
 
 #[derive(GraphQLEnum, Clone, Copy)]
@@ -20,6 +21,10 @@ struct Query;
 impl Query {
     fn favoriteEpisode(context: &Ctx) -> FieldResult<Episode> {
         Ok(context.0)
+    }
+
+    fn giveMeJedi(_context: &Ctx) -> FieldResult<Episode> {
+        Ok(Episode::Jedi {})
     }
 }
 
@@ -42,10 +47,32 @@ fn main() {
     .unwrap();
 
     // Ensure the value matches.
-    assert_eq!(
-        res,
-        graphql_value!({
-            "favoriteEpisode": "NEW_HOPE",
-        })
-    );
+    // assert_eq!(
+    //     res,
+    //     graphql_value!({
+    //         "favoriteEpisode": "NEW_HOPE",
+    //     })
+    // );
+    println!("res {:?}", res);
+
+    // Create a context object.
+    // let ctx = Ctx(Episode::Jedi);
+    // Run the executor.
+    let (res, _errors) = juniper::execute_sync(
+        "query { giveMeJedi }",
+        None,
+        &Schema::new(Query, EmptyMutation::new(), EmptySubscription::new()),
+        &Variables::new(),
+        &ctx,
+    )
+    .unwrap();
+
+    // Ensure the value matches.
+    // assert_eq!(
+    //     res,
+    //     graphql_value!({
+    //         "favoriteEpisode": "NEW_HOPE",
+    //     })
+    // );
+    println!("res {:?}", res);
 }
