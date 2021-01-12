@@ -33,6 +33,9 @@ impl Query {
 type Schema = juniper::RootNode<'static, Query, EmptyMutation<Ctx>, EmptySubscription<Ctx>>;
 
 fn main() {
+    dotenv::dotenv().ok();
+    env_logger::init();
+
     // Create a context object.
     let ctx = Ctx(Episode::NewHope);
 
